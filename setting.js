@@ -1,10 +1,11 @@
 (function (){
-    const DEFAULT_INTERVAL_TIME = 5000;
+    const DEFAULT_INTERVAL_TIME = 60;
     function loader() {
         chrome.storage.local.get('save', (obj) => {
             const saved = obj.save;
             document.querySelector('#invalid').checked = saved.invalid || false;
             document.querySelector('#interval_time').value = saved.intervalTime || DEFAULT_INTERVAL_TIME;
+            document.querySelector('#unmute_after_operation').checked = saved.unmuteAfterOperation || false;
         });
     }
     document.addEventListener('DOMContentLoaded', (event) => {
@@ -16,6 +17,10 @@
     });
 
     document.querySelector('#interval_time').addEventListener('change', (event) => {
+        saveAndSendMessage();
+    });
+
+    document.querySelector('#unmute_after_operation').addEventListener('change', (event) => {
         saveAndSendMessage();
     });
 
@@ -35,10 +40,15 @@
         return document.querySelector('#invalid').checked;
     }
 
+    function getUnmuteAfterOperation() {
+        return document.querySelector('#unmute_after_operation').checked;
+    }
+
     function generateMessage() {
         return {
             'intervalTime': getIntervalTime(),
             'invalid': getInvalid(),
+            'unmuteAfterOperation': getUnmuteAfterOperation(),
         };
     }
 })();
