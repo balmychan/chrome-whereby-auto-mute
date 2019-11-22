@@ -1,6 +1,6 @@
 {
     "name": "whereby-auto-mute",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "manifest_version": 2,
     "description": "Automatically mute the microphone in whereby.com",
     "permissions": ["tabs", "storage"],
